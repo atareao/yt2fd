@@ -1,0 +1,15 @@
+[credentials]
+base_url = "https://fediverse.tv/api/v1"
+username =
+password =
+
+[client]
+client_id =
+client_secret =
+
+[token]
+token_type =
+access_token =
+refresh_token =
+expires_in = 0
+refresh_token_expires_in = 0
