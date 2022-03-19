@@ -22,6 +22,7 @@
 # SOFTWARE.
 
 import os
+import sys
 from pathlib import Path
 from time import sleep
 from vault import YTIDS
@@ -38,20 +39,27 @@ def main():
     temp_filename = os.getenv("TEMP_FILENAME")
     if yt_key is None:
         print(f"{yt_key} not exists")
-        exit(1)
+        sys.exit(1)
     if filename is None or not Path(filename).exists() or \
             not Path(filename).is_file():
         print(f"{filename} not exists")
-        exit(1)
+        sys.exit(1)
     if temp_path is None or not Path(temp_path).exists() or \
             not Path(temp_path).is_dir():
         print(f"{temp_path} not exits")
-        exit(1)
+        sys.exit(1)
     if temp_filename is None:
         print(f"{temp_filename} not exits")
-        exit(1)
+        sys.exit(1)
     youtube = YouTube(yt_key, temp_path, temp_filename)
     peertube = PeerTube(pt_path)
+
+    user_info = peertube.get_user_info()
+    if user_info:
+        print(user_info)
+    else:
+        print("Can't get info from peerTube")
+        sys.exit(1)
 
     ytids = YTIDS(filename)
     ytid = ytids.get_id()
@@ -68,15 +76,19 @@ def main():
                 contador += 1
             if not filepath.exists():
                 print(f"{filepath} not exits. Exit")
-                exit(1)
+                sys.exit(1)
+            print(f"Uploading {filepath}")
             if peertube.upload(pt_channel_id, filepath, info['title'],
                     info['description']):
                 ytids.save()
+            else:
+                sys.exit(1)
             youtube.clean()
             sleep(60)
         else:
             print(f"Can not download {ytid}")
-            exit(1)
+            sys.exit(1)
+        sleep(60)
         ytid = ytids.get_id()
 
 if __name__ == "__main__":
