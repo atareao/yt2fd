@@ -71,11 +71,12 @@ class YouTube:
         download_link = f"{YTURL}/watch?v={yt_id}"
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             tries = 0
-            while tries < self.__tries or success is False:
+            while tries < self.__tries and success is False:
                 try:
                     ydl.download([download_link])
                     success = True
-                except:
+                except Exception as exception:
+                    print(exception)
                     tries += 1
                     sleep(self.__time_sleep)
         return success

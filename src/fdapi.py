@@ -106,18 +106,18 @@ class PeerTube:
                 "license": license_id,
                 "privacy": privace_policy_id
                 }
+        print(data)
         filename = os.path.basename(filepath)
         mimetype = mimetypes.guess_type(filepath)
         print(f"Going to upload {filepath} with mimetype {mimetype}")
         with open(filepath, 'rb') as file_reader:
             files = {"videofile": (filename, file_reader, mimetype)}
             response = requests.post(url, headers=headers, data=data, files=files)
+            print(response.status_code)
+            print(response.content)
             if response.status_code == 200:
                 return True
-            else:
-                print(f"Can't download {filepath}")
-                print(response.status_code)
-                print(response.content)
+            print(f"Can't download {filepath}")
         return False
 
     def logout(self):

@@ -65,9 +65,11 @@ def main():
     ytid = ytids.get_id()
     while ytid:
         info = youtube.get_info(ytid)
-        print("Downloading:")
-        print(info)
-        if info and youtube.download(ytid):
+        if info:
+            print("Downloading:")
+            print(info)
+            res = youtube.download(ytid)
+            print(res)
             filepath = Path(temp_path) / f"{temp_filename}.mp4"
             contador = 0
             while not filepath.exists() and contador < 10:
