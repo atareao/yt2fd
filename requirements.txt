@@ -1,3 +1,4 @@
 requests==2.27.1
 toml==0.10.2
-youtube_dl==2021.12.17
+pycrypto
+yt-dlp==2022.03.08

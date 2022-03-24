@@ -12,7 +12,10 @@ ENV PYTHONIOENCODING=utf-8
 ENV PYTHONUNBUFFERED=1
 
 RUN echo "**** install Python ****" && \
-    apk add --update --no-cache \
+    apk add --update --no-cache --virtual\
+            gcc \
+            musl-dev \
+            python3-dev \
             tini==0.19.0-r0 \
             tzdata==2022a-r0 \
             ffmpeg==4.4.1-r2 \

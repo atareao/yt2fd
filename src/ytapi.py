@@ -22,10 +22,10 @@
 # SOFTWARE.
 
 import os
-import requests
-import youtube_dl
-from pathlib import Path
 from time import sleep
+from pathlib import Path
+import requests
+import yt_dlp
 
 URL = 'https://www.googleapis.com/youtube/v3'
 YTURL = 'https://www.youtube.com'
@@ -69,7 +69,7 @@ class YouTube:
         ydl_opts = {'outtmpl': f"{self.__file}",
                     'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'}
         download_link = f"{YTURL}/watch?v={yt_id}"
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             tries = 0
             while tries < self.__tries and success is False:
                 try:
