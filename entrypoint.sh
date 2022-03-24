@@ -21,4 +21,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+echo "Activating env"
+source /opt/venv/bin/activate
 python3 -u /app/src/main.py
