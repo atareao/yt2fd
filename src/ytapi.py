@@ -39,6 +39,17 @@ class YouTube:
         self.__key = key
         self.__file = Path(path) / filename
 
+    def get_all(self, channel_id):
+        url = f"{URL}/search?channeldId={channel_id}&part=snippet,id&order=date&maxResults=100&key={self.__key}"
+        print(url)
+        response = requests.get(url=url)
+        if response.status_code != 200:
+            return None
+        data =response.json()
+        if 'items' in data and data['items']:
+            for item in data['items']:
+                print(item)
+
     def get_info(self, yt_id):
         url = f"{URL}/videos?part=snippet&id={yt_id}&key={self.__key}"
         print(url)
