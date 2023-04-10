@@ -35,7 +35,7 @@ class PeerTube:
         self.path = path
         self.conf = self.__read_configuration()
         self.login()
-        #self.logout()
+        # self.logout()
 
     def get_user_info(self):
         base_url = self.conf['credentials']['base_url']
@@ -51,9 +51,11 @@ class PeerTube:
         return {}
 
     def upload(self, channel_id, filepath, name, description,
-            privace_policy_id=1, license_id=1, language='es', category_id=15):
+               privace_policy_id=1, license_id=1, language='es',
+               category_id=15):
         """
-        url: https://docs.joinpeertube.org/api-rest-reference.html#operation/uploadLegacy
+        url: https://docs.joinpeertube.org/api-rest-reference.html#operation/
+            uploadLegacy
         Privacy Policies:
             "1": "Public",
             "2": "Unlisted",
@@ -112,7 +114,8 @@ class PeerTube:
         print(f"Going to upload {filepath} with mimetype {mimetype}")
         with open(filepath, 'rb') as file_reader:
             files = {"videofile": (filename, file_reader, mimetype)}
-            response = requests.post(url, headers=headers, data=data, files=files)
+            response = requests.post(url, headers=headers, data=data,
+                                     files=files)
             print(response.status_code)
             print(response.content)
             if response.status_code == 200:
@@ -223,9 +226,7 @@ class PeerTube:
             toml.dump(self.conf, file_writer)
 
 
-
 if __name__ == '__main__':
-    import os
     from dotenv import load_dotenv
     load_dotenv()
     pt_path = os.getenv("PT_PATH")
@@ -234,4 +235,4 @@ if __name__ == '__main__':
     channel_id = os.getenv('PT_CHANNEL_ID')
     name = "test"
     filepath = "cap5.mp4"
-    #response = peerTube.upload(channel_id, name, filepath)
+    # response = peerTube.upload(channel_id, name, filepath)
