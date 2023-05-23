@@ -1,4 +1,4 @@
-requests==2.27.1
+requests==2.31.0
 toml==0.10.2
 pycrypto
 yt-dlp==2022.03.08
